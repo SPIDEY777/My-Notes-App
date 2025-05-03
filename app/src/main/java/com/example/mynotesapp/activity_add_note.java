@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashSet;
 
-public class  activity_add_note extends AppCompatActivity {
+public class activity_add_note extends AppCompatActivity {
 
     EditText noteTitle, noteContent;
     Button saveNoteButton;
@@ -28,7 +28,7 @@ public class  activity_add_note extends AppCompatActivity {
         noteContent = findViewById(R.id.noteContent);
         saveNoteButton = findViewById(R.id.saveNoteButton);
 
-        sharedPreferences = getSharedPreferences("MyNotes", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("My Notes", Context.MODE_PRIVATE);
 
         saveNoteButton.setOnClickListener(v -> {
             String title = noteTitle.getText().toString().trim();
@@ -50,6 +50,7 @@ public class  activity_add_note extends AppCompatActivity {
 
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
 
+            // Go back to MainActivity
             Intent intent = new Intent(activity_add_note.this, MainActivity.class);
             startActivity(intent);
             finish();

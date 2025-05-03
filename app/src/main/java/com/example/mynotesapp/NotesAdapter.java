@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -14,29 +14,30 @@ import java.util.List;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
     private Context context;
-    private List<String> noteTitles;
-    private List<String> noteContents;
+    private List<String> titles;
+    private List<String> contents;
 
-    public NotesAdapter(Context context, List<String> noteTitles, List<String> noteContents) {
+    public NotesAdapter(Context context, List<String> titles, List<String> contents) {
         this.context = context;
-        this.noteTitles = noteTitles;
-        this.noteContents = noteContents;
+        this.titles = titles;
+        this.contents = contents;
     }
 
+    @NonNull
     @Override
-    public NoteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.note_item, parent, false);
         return new NoteViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(NoteViewHolder holder, int position) {
-        String title = noteTitles.get(position);
-        String content = noteContents.get(position);
-        holder.noteTitle.setText(title);
-        holder.noteContent.setText(content);
+    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+        String title = titles.get(position);
+        String content = contents.get(position);
 
-        // Set click listener for opening note details
+        holder.titleView.setText(title);
+        holder.contentView.setText(content);
+
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, activity_detail.class);
             intent.putExtra("noteTitle", title);
@@ -47,16 +48,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     @Override
     public int getItemCount() {
-        return noteTitles.size();
+        return titles.size();
     }
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView noteTitle, noteContent;
+        TextView titleView, contentView;
 
-        public NoteViewHolder(View itemView) {
+        public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            noteTitle = itemView.findViewById(R.id.noteTitle);
-            noteContent = itemView.findViewById(R.id.noteContent);
+            titleView = itemView.findViewById(R.id.noteTitleView);
+            contentView = itemView.findViewById(R.id.noteContentView);
         }
     }
 }
